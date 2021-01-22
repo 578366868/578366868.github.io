@@ -17,18 +17,18 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"578366868.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="BLOG">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="https://578366868.github.io/index.html">
 <meta property="og:site_name" content="BLOG">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="Ron Lin">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="https://578366868.github.io/">
 
 
 <script id="page-configurations">
@@ -145,7 +145,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/21/DevOps%E5%AE%9E%E8%B7%B5/">
+    <link itemprop="mainEntityOfPage" href="https://578366868.github.io/2021/01/21/DevOps%E5%AE%9E%E8%B7%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -168,10 +168,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-01-21 15:33:24 / Modified: 21:20:33" itemprop="dateCreated datePublished" datetime="2021-01-21T15:33:24+08:00">2021-01-21</time>
+              <time title="Created: 2021-01-21 15:33:24" itemprop="dateCreated datePublished" datetime="2021-01-21T15:33:24+08:00">2021-01-21</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-22 13:23:33" itemprop="dateModified" datetime="2021-01-22T13:23:33+08:00">2021-01-22</time>
+              </span>
 
           
 
@@ -217,7 +223,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init --apiserver-advertise-address&#x3D;0.0.0.0 --apiserver-cert-extra-sans&#x3D;127.0.0.1 --image-repository&#x3D;registry.aliyuncs.com&#x2F;google_containers --ignore-preflight-errors&#x3D;all --kubernetes-version&#x3D;v1.20.2 --service-cidr&#x3D;10.10.0.0&#x2F;16 --pod-network-cidr&#x3D;10.18.0.0&#x2F;16</span><br></pre></td></tr></table></figure>
 <p>其中 kubernetes-version 需要改为上述查看到的版本号</p>
 <p>执行上述操作后 </p>
-<p><img src="media/16112343403164.jpg"></p>
+<p><img src="/2021/01/21/DevOps%E5%AE%9E%E8%B7%B5/16112343403164-1.jpg" alt="16112343403164"></p>
 <p>然后执行命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $HOME&#x2F;.kube</span><br><span class="line">sudo cp -i &#x2F;etc&#x2F;kubernetes&#x2F;admin.conf $HOME&#x2F;.kube&#x2F;config</span><br><span class="line">sudo chown $(id -u):$(id -g) $HOME&#x2F;.kube&#x2F;config</span><br></pre></td></tr></table></figure>
 <p>再执行</p>
@@ -229,8 +235,10 @@
 <p>参考链接中 <code>安装kubernetes-dashboard</code> 部分</p>
 <p>###7、注意</p>
 <blockquote>
-<p>dashboard 如果出现 <code>您的连接不是私密连接</code>，请使用 火狐浏览器</p>
+<p>1.dashboard 如果出现 <code>您的连接不是私密连接</code>，请使用 火狐浏览器<br>2.如出现错误 <code>that the pod didn’t tolerate</code>则参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41806245/article/details/103256230">解决方法</a> </p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint nodes --all node-role.kubernetes.io&#x2F;master-</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -250,7 +258,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/SpringBoot%E5%BA%94%E7%94%A8%E6%95%B4%E5%90%88ELK%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/">
+    <link itemprop="mainEntityOfPage" href="https://578366868.github.io/2021/01/15/SpringBoot%E5%BA%94%E7%94%A8%E6%95%B4%E5%90%88ELK%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -322,7 +330,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/dock%E5%B0%8F%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="https://578366868.github.io/2021/01/15/dock%E5%B0%8F%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -398,7 +406,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/15/%E5%B8%B8%E7%94%A8%E7%9A%84hexo%E5%91%BD%E4%BB%A4/">
+    <link itemprop="mainEntityOfPage" href="https://578366868.github.io/2021/01/15/%E5%B8%B8%E7%94%A8%E7%9A%84hexo%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -421,10 +429,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-01-15 11:03:46 / Modified: 13:04:44" itemprop="dateCreated datePublished" datetime="2021-01-15T11:03:46+08:00">2021-01-15</time>
+              <time title="Created: 2021-01-15 11:03:46" itemprop="dateCreated datePublished" datetime="2021-01-15T11:03:46+08:00">2021-01-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-01-22 09:10:01" itemprop="dateModified" datetime="2021-01-22T09:10:01+08:00">2021-01-22</time>
+              </span>
 
           
 
@@ -438,7 +452,7 @@
 
       
           <h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>参考<br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017986794">超详细Hexo+Github Page搭建技术博客教程</a></p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo new page &quot;pageName&quot; #新建页面</span><br><span class="line">hexo generate #生成静态页面至public目录</span><br><span class="line">hexo server #开启预览访问端口（默认端口4000，&#39;ctrl + c&#39;关闭server）</span><br><span class="line">hexo deploy #部署到GitHub</span><br><span class="line">hexo help  # 查看帮助</span><br><span class="line">hexo version  #查看Hexo的版本</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo new page &quot;pageName&quot; #新建页面</span><br><span class="line">hexo generate #生成静态页面至public目录</span><br><span class="line">hexo server #开启预览访问端口（默认端口4000，&#39;ctrl + c&#39;关闭server）</span><br><span class="line">hexo deploy #部署到GitHub</span><br><span class="line">hexo help  # 查看帮助</span><br><span class="line">hexo version  #查看Hexo的版本</span><br></pre></td></tr></table></figure>
 
 
 
