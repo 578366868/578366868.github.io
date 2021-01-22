@@ -176,7 +176,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-01-22 13:42:36" itemprop="dateModified" datetime="2021-01-22T13:42:36+08:00">2021-01-22</time>
+                <time title="Modified: 2021-01-22 13:47:20" itemprop="dateModified" datetime="2021-01-22T13:47:20+08:00">2021-01-22</time>
               </span>
 
           
@@ -223,8 +223,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init --apiserver-advertise-address&#x3D;0.0.0.0 --apiserver-cert-extra-sans&#x3D;127.0.0.1 --image-repository&#x3D;registry.aliyuncs.com&#x2F;google_containers --ignore-preflight-errors&#x3D;all --kubernetes-version&#x3D;v1.20.2 --service-cidr&#x3D;10.10.0.0&#x2F;16 --pod-network-cidr&#x3D;10.18.0.0&#x2F;16</span><br></pre></td></tr></table></figure>
 <p>其中 kubernetes-version 需要改为上述查看到的版本号</p>
 <p>执行上述操作后 </p>
-
-
+<p><img src="/2021/01/21/DevOps%E5%AE%9E%E8%B7%B5/16112343403164.jpg" alt="参考"></p>
 <p>然后执行命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $HOME&#x2F;.kube</span><br><span class="line">sudo cp -i &#x2F;etc&#x2F;kubernetes&#x2F;admin.conf $HOME&#x2F;.kube&#x2F;config</span><br><span class="line">sudo chown $(id -u):$(id -g) $HOME&#x2F;.kube&#x2F;config</span><br></pre></td></tr></table></figure>
 <p>再执行</p>
