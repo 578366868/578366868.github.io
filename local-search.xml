@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>各个环境的Docker发布</title>
+    <link href="/2021/01/28/%E5%90%84%E4%B8%AA%E7%8E%AF%E5%A2%83%E7%9A%84Docker%E5%8F%91%E5%B8%83/"/>
+    <url>/2021/01/28/%E5%90%84%E4%B8%AA%E7%8E%AF%E5%A2%83%E7%9A%84Docker%E5%8F%91%E5%B8%83/</url>
+    
+    <content type="html"><![CDATA[<h1 id="各个环境的Docker发布"><a href="#各个环境的Docker发布" class="headerlink" title="各个环境的Docker发布"></a>各个环境的Docker发布</h1><h2 id="SpringBoot-项目Docker发布（IDEA-本地Docker）"><a href="#SpringBoot-项目Docker发布（IDEA-本地Docker）" class="headerlink" title="SpringBoot 项目Docker发布（IDEA/本地Docker）"></a>SpringBoot 项目Docker发布（IDEA/本地Docker）</h2><h3 id="1-在pom-xml文件中添加下面plugin"><a href="#1-在pom-xml文件中添加下面plugin" class="headerlink" title="1. 在pom.xml文件中添加下面plugin"></a>1. 在pom.xml文件中添加下面plugin</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugin&gt;</span><br><span class="line">  &lt;groupId&gt;com.spotify&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;docker-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;version&gt;1.0.0&lt;&#x2F;version&gt;</span><br><span class="line">  &lt;configuration&gt;</span><br><span class="line">    &lt;!-- 这里是最终生成的docker镜像名称 --&gt;</span><br><span class="line">    &lt;imageName&gt;$&#123;project.artifactId&#125;&lt;&#x2F;imageName&gt;</span><br><span class="line">    &lt;dockerDirectory&gt;src&#x2F;main&#x2F;docker&lt;&#x2F;dockerDirectory&gt;</span><br><span class="line">    &lt;!-- 基础镜像，运行一个springboot应用只需要基础的java环境就行 --&gt;</span><br><span class="line">    &lt;baseImage&gt;java:8&lt;&#x2F;baseImage&gt;</span><br><span class="line">    &lt;!-- docker启动的时候执行的命令 --&gt;</span><br><span class="line">    &lt;entryPoint&gt;[&quot;java&quot;, &quot;-jar&quot;, &quot;&#x2F;$&#123;project.build.finalName&#125;.jar&quot;]&lt;&#x2F;entryPoint&gt;</span><br><span class="line">    &lt;resources&gt;</span><br><span class="line">      &lt;resource&gt;</span><br><span class="line">        &lt;targetPath&gt;&#x2F;&lt;&#x2F;targetPath&gt;</span><br><span class="line">        &lt;directory&gt;$&#123;project.build.directory&#125;&lt;&#x2F;directory&gt;</span><br><span class="line">        &lt;include&gt;$&#123;project.build.finalName&#125;.jar&lt;&#x2F;include&gt;</span><br><span class="line">      &lt;&#x2F;resource&gt;</span><br><span class="line">    &lt;&#x2F;resources&gt;</span><br><span class="line">  &lt;&#x2F;configuration&gt;</span><br><span class="line">&lt;&#x2F;plugin&gt;</span><br></pre></td></tr></table></figure><h3 id="2-在工程中创建Dockerfile文件"><a href="#2-在工程中创建Dockerfile文件" class="headerlink" title="2. 在工程中创建Dockerfile文件"></a>2. 在工程中创建Dockerfile文件</h3><p><img src="/2021/01/28/%E5%90%84%E4%B8%AA%E7%8E%AF%E5%A2%83%E7%9A%84Docker%E5%8F%91%E5%B8%83/16118126575815.jpg"><br>文件所对应的路径是和上面plugin中的dockerDirectory所指向的路径一致。</p><h3 id="3-Dockerfile文件内容"><a href="#3-Dockerfile文件内容" class="headerlink" title="3. Dockerfile文件内容"></a>3. Dockerfile文件内容</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#使用jdk8作为基础镜像</span><br><span class="line">FROM openjdk:8-jdk-alpine</span><br><span class="line">#指定作者</span><br><span class="line">MAINTAINER Ron.lin</span><br><span class="line">#暴露容器的端口</span><br><span class="line">EXPOSE 5000</span><br><span class="line">#将复制指定的gateway-java-sample-code-1.0.jar为容器中的mpgs.jar，相当于拷贝到容器中取了个别名</span><br><span class="line">ADD gateway-java-sample-code-1.0.jar mpgs.jar</span><br><span class="line">#</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,&quot;-Djava.security.egd&#x3D;file:&#x2F;dev&#x2F;.&#x2F;urandom&quot;,&quot;-jar&quot;,&quot;&#x2F;mpgs.jar&quot;]</span><br></pre></td></tr></table></figure><p>上述中端口所对应的应该为springboot 项目port</p><h3 id="4-docker-镜像生成"><a href="#4-docker-镜像生成" class="headerlink" title="4. docker 镜像生成"></a>4. docker 镜像生成</h3><p>执行IDEA右侧<code>docker -&gt; docker:build</code></p><p><img src="/2021/01/28/%E5%90%84%E4%B8%AA%E7%8E%AF%E5%A2%83%E7%9A%84Docker%E5%8F%91%E5%B8%83/16118129357655.jpg"><br>上述描述则执行成功</p><p>执行后<code>docker images</code> 则可以想要的镜像</p><h3 id="5-启动镜像"><a href="#5-启动镜像" class="headerlink" title="5. 启动镜像"></a>5. 启动镜像</h3><p><code>docker run -d -p 5000:5000 XXX</code> </p><p>XXX为镜像名</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Docker发布</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>DevOps实践</title>
+    <link href="/2021/01/21/DevOps%E5%AE%9E%E8%B7%B5/"/>
+    <url>/2021/01/21/DevOps%E5%AE%9E%E8%B7%B5/</url>
+    
+    <content type="html"><![CDATA[<h1 id="DevOps实践"><a href="#DevOps实践" class="headerlink" title="DevOps实践"></a>DevOps实践</h1><h2 id="Centos-安装docker"><a href="#Centos-安装docker" class="headerlink" title="Centos 安装docker"></a>Centos 安装docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br><span class="line">sudo yum-config-manager     --add-repo     https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br><span class="line">yum install docker-ce</span><br></pre></td></tr></table></figure><p><a href="https://docs.docker.com/engine/install/centos/">官方文档</a></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 启动 Docker</span><br><span class="line">service docker start</span><br><span class="line">&#x2F;&#x2F; 停用 Docker</span><br><span class="line">service docker stop</span><br><span class="line">&#x2F;&#x2F; 重启 Docker</span><br><span class="line">service docker restart</span><br></pre></td></tr></table></figure><p>可以修改docker 镜像文件的路径</p><p>1、修改docker.service文件，使用-g参数指定存储位置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;docker.service  </span><br><span class="line">  ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd --graph &#x2F;新path&#x2F;docker </span><br></pre></td></tr></table></figure><p>2、reload配置文件 </p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure><p>3、 重启docker </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart docker.service</span><br></pre></td></tr></table></figure><p>4、查看 Docker Root Dir: /var/lib/docker 是否改成设定的目录 /新-path/docker</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure><p>为了docker加速pull，可以设置阿里云加速：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim &#x2F;etc&#x2F;docker&#x2F;daemon.json</span><br></pre></td></tr></table></figure><p>设置如下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   &quot;registry-mirrors&quot; : [&quot;https:&#x2F;&#x2F;mj9kvemk.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="centos8-安装k8s"><a href="#centos8-安装k8s" class="headerlink" title="centos8 安装k8s"></a>centos8 安装k8s</h2><p>参考：<a href="https://blog.csdn.net/witton/article/details/107085155">CentOS8下超详细安装配置kubernetes</a></p><p>###1、关闭防火墙</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop firewalld.service</span><br><span class="line">sudo systemctl disable firewalld.service</span><br></pre></td></tr></table></figure><p>###2、配置系统基本安装源 </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-8.repo</span><br></pre></td></tr></table></figure><p>###3、安装kubectl、kubelet、kubeadm<br>安装kubectl、kubelet、kubeadm，设置kubelet开机启动，启动kubelet。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y kubectl kubelet kubeadm</span><br><span class="line">sudo systemctl enable kubelet</span><br><span class="line">sudo systemctl start kubelet</span><br></pre></td></tr></table></figure><p>查看K8S版本</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubelet --version</span><br></pre></td></tr></table></figure><p>###4、初始化kubernetes集群</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init --apiserver-advertise-address&#x3D;0.0.0.0 --apiserver-cert-extra-sans&#x3D;127.0.0.1 --image-repository&#x3D;registry.aliyuncs.com&#x2F;google_containers --ignore-preflight-errors&#x3D;all --kubernetes-version&#x3D;v1.20.2 --service-cidr&#x3D;10.10.0.0&#x2F;16 --pod-network-cidr&#x3D;10.18.0.0&#x2F;16</span><br></pre></td></tr></table></figure><p>其中 kubernetes-version 需要改为上述查看到的版本号</p><p>执行上述操作后 </p><p><img src="/2021/01/21/DevOps%E5%AE%9E%E8%B7%B5/16112343403164.jpg" alt="参考"></p><p>然后执行命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $HOME&#x2F;.kube</span><br><span class="line">sudo cp -i &#x2F;etc&#x2F;kubernetes&#x2F;admin.conf $HOME&#x2F;.kube&#x2F;config</span><br><span class="line">sudo chown $(id -u):$(id -g) $HOME&#x2F;.kube&#x2F;config</span><br></pre></td></tr></table></figure><p>再执行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get node</span><br><span class="line">kubectl get pod --all-namespaces</span><br></pre></td></tr></table></figure><p>###5、安装calico网络(节点没有ready的情况)</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https:&#x2F;&#x2F;docs.projectcalico.org&#x2F;manifests&#x2F;calico.yaml</span><br></pre></td></tr></table></figure><p>执行<br><code>kubectl get node</code> 如果节点Ready的情况下则说明成功了。</p><p>###6、安装kubernetes-dashboard</p><p>参考链接中 <code>安装kubernetes-dashboard</code> 部分</p><p>###7、注意</p><blockquote><p>1.dashboard 如果出现 <code>您的连接不是私密连接</code>，请使用 火狐浏览器<br>2.如出现错误 <code>that the pod didn’t tolerate</code>则参考 <a href="https://blog.csdn.net/weixin_41806245/article/details/103256230">解决方法</a> </p></blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint nodes --all node-role.kubernetes.io&#x2F;master-</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>SpringBoot应用整合ELK实现日志收集</title>
+    <link href="/2021/01/15/SpringBoot%E5%BA%94%E7%94%A8%E6%95%B4%E5%90%88ELK%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/"/>
+    <url>/2021/01/15/SpringBoot%E5%BA%94%E7%94%A8%E6%95%B4%E5%90%88ELK%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/</url>
+    
+    <content type="html"><![CDATA[<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://www.macrozheng.com/#/technology/mall_tiny_elk?id=%e4%bd%bf%e7%94%a8docker-compose-%e6%90%ad%e5%bb%baelk%e7%8e%af%e5%a2%83">docker实现</a></p><h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><h3 id="默认es-是不支持跨域访问的"><a href="#默认es-是不支持跨域访问的" class="headerlink" title="默认es 是不支持跨域访问的"></a>默认es 是不支持跨域访问的</h3><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>1.进入对应的容器</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it [容器名] &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure><p>2.进入到/config/elasticsearch.yml配置文件，添加以下配置代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br></pre></td></tr></table></figure><p>3.重启容器，配置完成<br>可以在docker desktop 进行重启也可以 <code>docker run</code> 进行重启</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>日志</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>docker 和 k8s 总结</title>
+    <link href="/2021/01/15/dock%E5%B0%8F%E8%AE%B0/"/>
+    <url>/2021/01/15/dock%E5%B0%8F%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://www.cnblogs.com/hwlong/p/9158982.html">Docker介绍</a></p><p><a href="https://blog.csdn.net/zzq900503/article/details/80668686">kubernetes(k8s)介绍</a></p><h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><h3 id="mac-安装以及一些命令"><a href="#mac-安装以及一些命令" class="headerlink" title="mac 安装以及一些命令"></a>mac 安装以及一些命令</h3><p><a href="https://blog.6ag.cn/2115.html">安装，命令</a></p><h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><p>docker中有镜像和容器的概念，类似于类和类的实现的概念，也类似于镜像是<code>软件</code>的概念，而容器是 <code>软件+数据</code>。</p><p>为了保持各个服务器之间软件运行的环境一致，就需要使用容器（软件 + 数据），容器的docker 备份和再运行<br><a href="https://blog.csdn.net/aeve_imp/article/details/101531225">容器打包成新镜像-再运行</a></p><h1 id="k8s"><a href="#k8s" class="headerlink" title="k8s"></a>k8s</h1><p><a href="https://zhuanlan.zhihu.com/p/268618030">docker &amp; k8s 总结</a></p><p><code>docker desktop</code> 安装 <code>Kubernetes</code>， 由于大天朝网络建议</p><p><a href="https://www.cnblogs.com/13579net/p/11315218.html">Kubernetes安装</a></p><p>最后，翻墙，然后重启 <code>docker</code></p><h2 id="k8s-dashboard"><a href="#k8s-dashboard" class="headerlink" title="k8s dashboard"></a>k8s dashboard</h2><p><a href="http://www.fwhyy.com/2019/05/building-kubernetes-in-mac/">查看dashboard部分</a></p><p><a href="https://blog.csdn.net/weixin_38074756/article/details/109231865">如果有网络问题请参照</a></p><p>dashboard 访问路径为：<br><a href="http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login">http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>docker k8s</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>常用的hexo 部署以及命令</title>
+    <link href="/2021/01/15/%E5%B8%B8%E7%94%A8%E7%9A%84hexo%E5%91%BD%E4%BB%A4/"/>
+    <url>/2021/01/15/%E5%B8%B8%E7%94%A8%E7%9A%84hexo%E5%91%BD%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>参考<br><a href="https://segmentfault.com/a/1190000017986794">超详细Hexo+Github Page搭建技术博客教程</a></p><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo new page &quot;pageName&quot; #新建页面</span><br><span class="line">hexo generate #生成静态页面至public目录</span><br><span class="line">hexo server #开启预览访问端口（默认端口4000，&#39;ctrl + c&#39;关闭server）</span><br><span class="line">hexo deploy #部署到GitHub</span><br><span class="line">hexo help  # 查看帮助</span><br><span class="line">hexo version  #查看Hexo的版本</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>hexo</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
