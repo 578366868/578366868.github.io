@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      556 字
+      499 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      7
        分钟
     </span>
   
@@ -227,46 +227,46 @@
             <h1 style="display: none">DevOps实践</h1>
             
             <div class="markdown-body">
-              <h1 id="DevOps实践"><a href="#DevOps实践" class="headerlink" title="DevOps实践"></a>DevOps实践</h1><h2 id="Centos-安装docker"><a href="#Centos-安装docker" class="headerlink" title="Centos 安装docker"></a>Centos 安装docker</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y yum-utils</span><br><span class="line">sudo yum-config-manager     --add-repo     https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;centos&#x2F;docker-ce.repo</span><br><span class="line">yum install docker-ce</span><br></pre></td></tr></table></figure>
+              <h1 id="DevOps实践"><a href="#DevOps实践" class="headerlink" title="DevOps实践"></a>DevOps实践</h1><h2 id="Centos-安装docker"><a href="#Centos-安装docker" class="headerlink" title="Centos 安装docker"></a>Centos 安装docker</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim">sudo yum install -<span class="hljs-keyword">y</span> yum-utils<br>sudo yum-config-manager     --<span class="hljs-built_in">add</span>-repo     http<span class="hljs-variable">s:</span>//download.docker.<span class="hljs-keyword">com</span>/linux/centos/docker-<span class="hljs-keyword">ce</span>.repo<br>yum install docker-<span class="hljs-keyword">ce</span><br></code></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/centos/">官方文档</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 启动 Docker</span><br><span class="line">service docker start</span><br><span class="line">&#x2F;&#x2F; 停用 Docker</span><br><span class="line">service docker stop</span><br><span class="line">&#x2F;&#x2F; 重启 Docker</span><br><span class="line">service docker restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 启动 Docker<br>service docker start<br><span class="hljs-regexp">//</span> 停用 Docker<br>service docker stop<br><span class="hljs-regexp">//</span> 重启 Docker<br>service docker restart<br></code></pre></td></tr></table></figure>
 <p>可以修改docker 镜像文件的路径</p>
 <p>1、修改docker.service文件，使用-g参数指定存储位置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;docker.service  </span><br><span class="line">  ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd --graph &#x2F;新path&#x2F;docker </span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">vi <span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/systemd/</span>system/docker.service  <br>  ExecStart=<span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/dockerd --graph /</span>新path/docker <br></code></pre></td></tr></table></figure>
 
 
 <p>2、reload配置文件 </p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+  <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl daemon-reload</span><br></code></pre></td></tr></table></figure>
 <p>3、 重启docker </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart docker.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">systemctl</span> <span class="hljs-selector-tag">restart</span> <span class="hljs-selector-tag">docker</span><span class="hljs-selector-class">.service</span><br></code></pre></td></tr></table></figure>
 <p>4、查看 Docker Root Dir: /var/lib/docker 是否改成设定的目录 /新-path/docker</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> <span class="hljs-literal">info</span><br></code></pre></td></tr></table></figure>
 <p>为了docker加速pull，可以设置阿里云加速：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim &#x2F;etc&#x2F;docker&#x2F;daemon.json</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo vim <span class="hljs-regexp">/etc/</span>docker/daemon.json<br></code></pre></td></tr></table></figure>
 <p>设置如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   &quot;registry-mirrors&quot; : [&quot;https:&#x2F;&#x2F;mj9kvemk.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>   <span class="hljs-attr">&quot;registry-mirrors&quot;</span> : [<span class="hljs-string">&quot;https://mj9kvemk.mirror.aliyuncs.com&quot;</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 <h2 id="centos8-安装k8s"><a href="#centos8-安装k8s" class="headerlink" title="centos8 安装k8s"></a>centos8 安装k8s</h2><p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/witton/article/details/107085155">CentOS8下超详细安装配置kubernetes</a></p>
 <p>###1、关闭防火墙</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop firewalld.service</span><br><span class="line">sudo systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">sudo</span> <span class="hljs-selector-tag">systemctl</span> <span class="hljs-selector-tag">stop</span> <span class="hljs-selector-tag">firewalld</span><span class="hljs-selector-class">.service</span><br><span class="hljs-selector-tag">sudo</span> <span class="hljs-selector-tag">systemctl</span> <span class="hljs-selector-tag">disable</span> <span class="hljs-selector-tag">firewalld</span><span class="hljs-selector-class">.service</span><br></code></pre></td></tr></table></figure>
 <p>###2、配置系统基本安装源 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -o &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;repo&#x2F;Centos-8.repo</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">sudo</span> <span class="hljs-selector-tag">curl</span> <span class="hljs-selector-tag">-o</span> /<span class="hljs-selector-tag">etc</span>/<span class="hljs-selector-tag">yum</span><span class="hljs-selector-class">.repos</span><span class="hljs-selector-class">.d</span>/<span class="hljs-selector-tag">CentOS-Base</span><span class="hljs-selector-class">.repo</span> <span class="hljs-selector-tag">http</span>://<span class="hljs-selector-tag">mirrors</span><span class="hljs-selector-class">.aliyun</span><span class="hljs-selector-class">.com</span>/<span class="hljs-selector-tag">repo</span>/<span class="hljs-selector-tag">Centos-8</span><span class="hljs-selector-class">.repo</span><br></code></pre></td></tr></table></figure>
 <p>###3、安装kubectl、kubelet、kubeadm<br>安装kubectl、kubelet、kubeadm，设置kubelet开机启动，启动kubelet。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y kubectl kubelet kubeadm</span><br><span class="line">sudo systemctl enable kubelet</span><br><span class="line">sudo systemctl start kubelet</span><br></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">sudo yum install -y kubectl kubelet kubeadm<br>sudo systemctl <span class="hljs-keyword">enable</span> kubelet<br>sudo systemctl <span class="hljs-keyword">start</span> kubelet<br></code></pre></td></tr></table></figure>
 <p>查看K8S版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubelet --version</span><br></pre></td></tr></table></figure>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">kubelet <span class="hljs-comment">--version</span><br></code></pre></td></tr></table></figure>
 <p>###4、初始化kubernetes集群</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubeadm init --apiserver-advertise-address&#x3D;0.0.0.0 --apiserver-cert-extra-sans&#x3D;127.0.0.1 --image-repository&#x3D;registry.aliyuncs.com&#x2F;google_containers --ignore-preflight-errors&#x3D;all --kubernetes-version&#x3D;v1.20.2 --service-cidr&#x3D;10.10.0.0&#x2F;16 --pod-network-cidr&#x3D;10.18.0.0&#x2F;16</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">kubeadm init <span class="hljs-attribute">--apiserver-advertise-address</span>=0.0.0.0 <span class="hljs-attribute">--apiserver-cert-extra-sans</span>=127.0.0.1 <span class="hljs-attribute">--image-repository</span>=registry.aliyuncs.com/google_containers <span class="hljs-attribute">--ignore-preflight-errors</span>=all <span class="hljs-attribute">--kubernetes-version</span>=v1.20.2 <span class="hljs-attribute">--service-cidr</span>=10.10.0.0/16 <span class="hljs-attribute">--pod-network-cidr</span>=10.18.0.0/16<br></code></pre></td></tr></table></figure>
 <p>其中 kubernetes-version 需要改为上述查看到的版本号</p>
 <p>执行上述操作后 </p>
 <p><img src="/2021/01/21/DevOps%E5%AE%9E%E8%B7%B5/16112343403164.jpg" srcset="/img/loading.gif" alt="参考"></p>
 <p>然后执行命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $HOME&#x2F;.kube</span><br><span class="line">sudo cp -i &#x2F;etc&#x2F;kubernetes&#x2F;admin.conf $HOME&#x2F;.kube&#x2F;config</span><br><span class="line">sudo chown $(id -u):$(id -g) $HOME&#x2F;.kube&#x2F;config</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-variable">$HOME</span>/.kube<br>sudo cp -i <span class="hljs-regexp">/etc/</span>kubernetes<span class="hljs-regexp">/admin.conf $HOME/</span>.kube/config<br>sudo chown $(id -u):$(id -g) <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/.kube/</span>config<br></code></pre></td></tr></table></figure>
 <p>再执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get node</span><br><span class="line">kubectl get pod --all-namespaces</span><br></pre></td></tr></table></figure>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">kubectl get <span class="hljs-keyword">node</span><span class="hljs-title"></span><br><span class="hljs-title">kubectl</span> get pod --all-namespaces<br></code></pre></td></tr></table></figure>
 <p>###5、安装calico网络(节点没有ready的情况)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https:&#x2F;&#x2F;docs.projectcalico.org&#x2F;manifests&#x2F;calico.yaml</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">kubectl apply -f https:<span class="hljs-regexp">//</span>docs.projectcalico.org<span class="hljs-regexp">/manifests/</span>calico.yaml<br></code></pre></td></tr></table></figure>
 <p>执行<br><code>kubectl get node</code> 如果节点Ready的情况下则说明成功了。</p>
 <p>###6、安装kubernetes-dashboard</p>
 <p>参考链接中 <code>安装kubernetes-dashboard</code> 部分</p>
@@ -274,7 +274,7 @@
 <blockquote>
 <p>1.dashboard 如果出现 <code>您的连接不是私密连接</code>，请使用 火狐浏览器<br>2.如出现错误 <code>that the pod didn’t tolerate</code>则参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41806245/article/details/103256230">解决方法</a> </p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl taint nodes --all node-role.kubernetes.io&#x2F;master-</span><br></pre></td></tr></table></figure>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">kubectl taint nodes --all <span class="hljs-keyword">node</span><span class="hljs-title">-role</span>.kubernetes.io/<span class="hljs-literal">master</span>-<br></code></pre></td></tr></table></figure>
 
 
             </div>

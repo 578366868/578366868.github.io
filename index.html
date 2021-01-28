@@ -190,7 +190,7 @@
           
             
           
-          SpringBoot 项目Docker发布（IDEA/本地Docker）1. 在pom.xml文件中添加下面plugin123456789101112131415161718192021&lt;plugin&gt;  &lt;groupId&gt;com.spotify&lt;&#x2F;groupId&gt;  &lt;artifactId&gt;docker-maven-plugin&lt;&
+          SpringBoot 项目Docker发布（IDEA/本地Docker）1. 在pom.xml文件中添加下面plugin123456789101112131415161718192021&lt;plugin&gt;  &lt;groupId&gt;com.spotify&lt;/groupId&gt;  &lt;artifactId&gt;docker-maven-plugin&lt;/artif
         </a>
       </p>
 
@@ -231,8 +231,9 @@
           
             
           
-          DevOps实践Centos 安装docker123sudo yum install -y yum-utilssudo yum-config-manager     --add-repo     https:&#x2F;&#x2F;download.docker.com&#x2F;linux&#x2F;centos&#x2F;docker-ce.repoyum install docker-ce
-
+          DevOps实践Centos 安装docker123sudo yum install -y yum-utilssudo yum-config-manager     --add-repo     https://download.docker.com/linux/centos/docker-ce.repoyum install docker-ce
+官方文档
+123456// 启动 Dockerse
         </a>
       </p>
 
@@ -268,12 +269,12 @@
           
           参考docker实现
 注意默认es 是不支持跨域访问的解决方法1.进入对应的容器
-1docker exec -it [容器名] &#x2F;bin&#x2F;bash
+1docker exec -it [容器名] /bin/bash
 
 
 2.进入到/config/elasticsearch.yml配置文件，添加以下配置代码
 12http.cors.enabled: truehttp.cors.allow-origin: &quot;*&quot;
-3.重启容器，
+3.重启容器，配置完成可以在doc
         </a>
       </p>
 
@@ -361,7 +362,7 @@ k8sdocker &amp; k8s
             
           
           部署参考超详细Hexo+Github Page搭建技术博客教程
-常用命令1234567hexo new &quot;postName&quot; #新建文章hexo new page &quot;pageName&quot; #新建页面hexo generate #生成静态页面至public目录hexo server #开启预览访问端口（默认端口4000，&#39;ctrl + c&#39;关闭s
+常用命令1234567hexo new &quot;postName&quot; #新建文章hexo new page &quot;pageName&quot; #新建页面hexo generate #生成静态页面至public目录hexo server #开启预览访问端口（默认端口4000，&#x27;ctrl + c&#x27;关
         </a>
       </p>
 
