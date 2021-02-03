@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Ron Lin">
   <meta name="keywords" content="">
-  <title>DevOps实践 - BLOG</title>
+  <title>容器编排 - BLOG</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="DevOps实践">
+            <span class="h2" id="subtitle" title="容器编排">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-21 15:33" pubdate>
-        2021年1月21日 下午
+      <time datetime="2021-02-03 10:18" pubdate>
+        2021年2月3日 上午
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      499 字
+      457 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      6
        分钟
     </span>
   
@@ -224,64 +224,40 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">DevOps实践</h1>
+            <h1 style="display: none">容器编排</h1>
             
             <div class="markdown-body">
-              <h1 id="DevOps实践"><a href="#DevOps实践" class="headerlink" title="DevOps实践"></a>DevOps实践</h1><h2 id="Centos-安装docker"><a href="#Centos-安装docker" class="headerlink" title="Centos 安装docker"></a>Centos 安装docker</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim">sudo yum install -<span class="hljs-keyword">y</span> yum-utils<br>sudo yum-config-manager     --<span class="hljs-built_in">add</span>-repo     http<span class="hljs-variable">s:</span>//download.docker.<span class="hljs-keyword">com</span>/linux/centos/docker-<span class="hljs-keyword">ce</span>.repo<br>yum install docker-<span class="hljs-keyword">ce</span><br></code></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/centos/">官方文档</a></p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 启动 Docker<br>service docker start<br><span class="hljs-regexp">//</span> 停用 Docker<br>service docker stop<br><span class="hljs-regexp">//</span> 重启 Docker<br>service docker restart<br></code></pre></td></tr></table></figure>
-<p>可以修改docker 镜像文件的路径</p>
-<p>1、修改docker.service文件，使用-g参数指定存储位置</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">vi <span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/systemd/</span>system/docker.service  <br>  ExecStart=<span class="hljs-regexp">/usr/</span>bin<span class="hljs-regexp">/dockerd --graph /</span>新path/docker <br></code></pre></td></tr></table></figure>
-
-
-<p>2、reload配置文件 </p>
-  <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">systemctl daemon-reload</span><br></code></pre></td></tr></table></figure>
-<p>3、 重启docker </p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">systemctl</span> <span class="hljs-selector-tag">restart</span> <span class="hljs-selector-tag">docker</span><span class="hljs-selector-class">.service</span><br></code></pre></td></tr></table></figure>
-<p>4、查看 Docker Root Dir: /var/lib/docker 是否改成设定的目录 /新-path/docker</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">docker</span> <span class="hljs-literal">info</span><br></code></pre></td></tr></table></figure>
-<p>为了docker加速pull，可以设置阿里云加速：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo vim <span class="hljs-regexp">/etc/</span>docker/daemon.json<br></code></pre></td></tr></table></figure>
-<p>设置如下</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>   <span class="hljs-attr">&quot;registry-mirrors&quot;</span> : [<span class="hljs-string">&quot;https://mj9kvemk.mirror.aliyuncs.com&quot;</span>]<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
-<h2 id="centos8-安装k8s"><a href="#centos8-安装k8s" class="headerlink" title="centos8 安装k8s"></a>centos8 安装k8s</h2><p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/witton/article/details/107085155">CentOS8下超详细安装配置kubernetes</a></p>
-<p>###1、关闭防火墙</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">sudo</span> <span class="hljs-selector-tag">systemctl</span> <span class="hljs-selector-tag">stop</span> <span class="hljs-selector-tag">firewalld</span><span class="hljs-selector-class">.service</span><br><span class="hljs-selector-tag">sudo</span> <span class="hljs-selector-tag">systemctl</span> <span class="hljs-selector-tag">disable</span> <span class="hljs-selector-tag">firewalld</span><span class="hljs-selector-class">.service</span><br></code></pre></td></tr></table></figure>
-<p>###2、配置系统基本安装源 </p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">sudo</span> <span class="hljs-selector-tag">curl</span> <span class="hljs-selector-tag">-o</span> /<span class="hljs-selector-tag">etc</span>/<span class="hljs-selector-tag">yum</span><span class="hljs-selector-class">.repos</span><span class="hljs-selector-class">.d</span>/<span class="hljs-selector-tag">CentOS-Base</span><span class="hljs-selector-class">.repo</span> <span class="hljs-selector-tag">http</span>://<span class="hljs-selector-tag">mirrors</span><span class="hljs-selector-class">.aliyun</span><span class="hljs-selector-class">.com</span>/<span class="hljs-selector-tag">repo</span>/<span class="hljs-selector-tag">Centos-8</span><span class="hljs-selector-class">.repo</span><br></code></pre></td></tr></table></figure>
-<p>###3、安装kubectl、kubelet、kubeadm<br>安装kubectl、kubelet、kubeadm，设置kubelet开机启动，启动kubelet。</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">sudo yum install -y kubectl kubelet kubeadm<br>sudo systemctl <span class="hljs-keyword">enable</span> kubelet<br>sudo systemctl <span class="hljs-keyword">start</span> kubelet<br></code></pre></td></tr></table></figure>
-<p>查看K8S版本</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">kubelet <span class="hljs-comment">--version</span><br></code></pre></td></tr></table></figure>
-<p>###4、初始化kubernetes集群</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">kubeadm init <span class="hljs-attribute">--apiserver-advertise-address</span>=0.0.0.0 <span class="hljs-attribute">--apiserver-cert-extra-sans</span>=127.0.0.1 <span class="hljs-attribute">--image-repository</span>=registry.aliyuncs.com/google_containers <span class="hljs-attribute">--ignore-preflight-errors</span>=all <span class="hljs-attribute">--kubernetes-version</span>=v1.20.2 <span class="hljs-attribute">--service-cidr</span>=10.10.0.0/16 <span class="hljs-attribute">--pod-network-cidr</span>=10.18.0.0/16<br></code></pre></td></tr></table></figure>
-<p>其中 kubernetes-version 需要改为上述查看到的版本号</p>
-<p>执行上述操作后 </p>
-<p><img src="/2021/01/21/DevOps%E5%AE%9E%E8%B7%B5/16112343403164.jpg" srcset="/img/loading.gif" alt="参考"></p>
-<p>然后执行命令</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-variable">$HOME</span>/.kube<br>sudo cp -i <span class="hljs-regexp">/etc/</span>kubernetes<span class="hljs-regexp">/admin.conf $HOME/</span>.kube/config<br>sudo chown $(id -u):$(id -g) <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/.kube/</span>config<br></code></pre></td></tr></table></figure>
-<p>再执行</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">kubectl get <span class="hljs-keyword">node</span><span class="hljs-title"></span><br><span class="hljs-title">kubectl</span> get pod --all-namespaces<br></code></pre></td></tr></table></figure>
-<p>###5、安装calico网络(节点没有ready的情况)</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">kubectl apply -f https:<span class="hljs-regexp">//</span>docs.projectcalico.org<span class="hljs-regexp">/manifests/</span>calico.yaml<br></code></pre></td></tr></table></figure>
-<p>执行<br><code>kubectl get node</code> 如果节点Ready的情况下则说明成功了。</p>
-<p>###6、安装kubernetes-dashboard</p>
-<p>参考链接中 <code>安装kubernetes-dashboard</code> 部分</p>
-<p>###7、注意</p>
-<blockquote>
-<p>1.dashboard 如果出现 <code>您的连接不是私密连接</code>，请使用 火狐浏览器<br>2.如出现错误 <code>that the pod didn’t tolerate</code>则参考 <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41806245/article/details/103256230">解决方法</a> </p>
+              <h2 id="uwsgi-flask-nginx-docker-compose-进入容器编排（本地）"><a href="#uwsgi-flask-nginx-docker-compose-进入容器编排（本地）" class="headerlink" title="uwsgi + flask + nginx docker_compose 进入容器编排（本地）"></a>uwsgi + flask + nginx docker_compose 进入容器编排（本地）</h2><h3 id="1-创建docker-compose-yml-文件"><a href="#1-创建docker-compose-yml-文件" class="headerlink" title="1. 创建docker_compose.yml 文件"></a>1. 创建docker_compose.yml 文件</h3><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">version:</span> <span class="hljs-string">&quot;2&quot;</span><br><span class="hljs-symbol">services:</span> <br><span class="hljs-symbol">  webapp1:</span><br><span class="hljs-symbol">    build:</span> ./drex_api<br><span class="hljs-symbol">    container_name:</span> drex_api<br><span class="hljs-symbol">    ports:</span><br>      - <span class="hljs-string">&quot;8000:8000&quot;</span><br><span class="hljs-symbol">    volumes:</span><br>      - /Users<span class="hljs-meta-keyword">/linliuan/</span>docker_info:/mnt<br><span class="hljs-symbol">  nginx:</span><br><span class="hljs-symbol">    image:</span> nginx<br><span class="hljs-symbol">    volumes:</span><br>      - ./nginx.conf:<span class="hljs-meta-keyword">/etc/</span>nginx/conf.d/default.conf<br><span class="hljs-symbol">    depends_on:</span><br>      - webapp1<br><span class="hljs-symbol">    ports:</span><br>      - <span class="hljs-string">&quot;8887:80&quot;</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-创建nginx-conf-文件"><a href="#2-创建nginx-conf-文件" class="headerlink" title="2. 创建nginx.conf 文件"></a>2. 创建nginx.conf 文件</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;<br>    <span class="hljs-attribute">server_name</span> <span class="hljs-number">0.0.0.0</span>; <br>    <span class="hljs-attribute">location</span> / &#123;<br>        <span class="hljs-attribute">include</span> uwsgi_params;<br>        <span class="hljs-attribute">uwsgi_pass</span> webapp1:<span class="hljs-number">8000</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="3-创建uwsgi的ini文件"><a href="#3-创建uwsgi的ini文件" class="headerlink" title="3. 创建uwsgi的ini文件"></a>3. 创建uwsgi的ini文件</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[uwsgi]</span><br><span class="hljs-attr">master</span> = <span class="hljs-literal">true</span><br><span class="hljs-attr">callable</span>=app<br><span class="hljs-attr">socket</span> = :<span class="hljs-number">8000</span><br><span class="hljs-attr">chdir</span> = /drex_api<br><span class="hljs-attr">module</span> = app<br><span class="hljs-attr">processes</span> = <span class="hljs-number">2</span><br><span class="hljs-attr">enable-threads</span> = <span class="hljs-literal">true</span><br><span class="hljs-attr">logto</span> = /drex_api/app.log<br><span class="hljs-attr">post-buffering</span> = <span class="hljs-number">8192</span><br><span class="hljs-attr">smart-attach-daemon</span> = /tmp/celery_drex.pid celery -A celery_server.celery_app worker --pidfile=/tmp/celery_drex.pid<br></code></pre></td></tr></table></figure>
+<h3 id="4-创建Dockerfile-文件"><a href="#4-创建Dockerfile-文件" class="headerlink" title="4. 创建Dockerfile 文件"></a>4. 创建Dockerfile 文件</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 所采用的基础镜像</span><br><span class="hljs-keyword">FROM</span> python:<span class="hljs-number">3.7</span>.<span class="hljs-number">0</span><br><br><span class="hljs-comment"># 为镜像添加标签</span><br><span class="hljs-keyword">LABEL</span><span class="bash"> version=<span class="hljs-string">&quot;v1&quot;</span> description=<span class="hljs-string">&quot;Docker deploy Flask&quot;</span> by=<span class="hljs-string">&quot;Dalao&quot;</span></span><br><br><span class="hljs-keyword">RUN</span><span class="bash"> mkdir /drex_api</span><br><br><span class="hljs-comment"># 配置工作目录</span><br><span class="hljs-comment"># WORKDIR /usr/src/app</span><br><span class="hljs-keyword">WORKDIR</span><span class="bash"> /drex_api</span><br><br><span class="hljs-comment"># 将主机中目录内容拷贝到镜像目录下</span><br><span class="hljs-comment"># COPY . .</span><br><span class="hljs-keyword">COPY</span><span class="bash"> . /drex_api</span><br><br><span class="hljs-comment"># EXPOSE 8000</span><br><br><span class="hljs-comment"># 在镜像容器中执行命令</span><br><span class="hljs-keyword">RUN</span><span class="bash"> pip install -r requirements.txt</span><br><br><br><br><span class="hljs-comment"># 容器启动时执行指令,每个Dockerfile只能有一条CMD命令</span><br><span class="hljs-comment"># CMD [&quot;uwsgi&quot;, &quot;--ini&quot;, &quot;/drex_api/uwsgi_docker.ini&quot;]</span><br><span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;uwsgi&quot;</span>, <span class="hljs-string">&quot;--ini&quot;</span>, <span class="hljs-string">&quot;/drex_api/uwsgi_docker_compose.ini&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+<p>文件目录大致是这样的情况</p>
+<p><img src="/2021/02/03/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92/16123293531773.jpg" srcset="/img/loading.gif"></p>
+<h3 id="5-docker-compose-命令执行"><a href="#5-docker-compose-命令执行" class="headerlink" title="5. docker-compose 命令执行"></a>5. docker-compose 命令执行</h3><p>执行命令</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">docker-compose up -d</span><br></code></pre></td></tr></table></figure>
+<p>创建docker的images,并且同时创建 container 并启动。</p>
+<p>启动后<code>docker ps</code> 显示container </p>
+<p><img src="/2021/02/03/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92/16123299192478.jpg" srcset="/img/loading.gif"></p>
+<h3 id="6-编排中遇到的问题"><a href="#6-编排中遇到的问题" class="headerlink" title="6. 编排中遇到的问题"></a>6. 编排中遇到的问题</h3><blockquote>
+<ol>
+<li>docker 中运行的容器服务不可以使用后台启动， docker 发现不了后台启动的服务, 现象会是刚启动docker 服务后立马停止。</li>
+<li>docker 内容器的通信需要创建的时候注意下： 这里uwsgi的配置文件中socket = :8000 是只可以容器间的端口可见。socket ==&gt; http 的时候，容器间就不可见，但外部就可以进行直接的访问。</li>
+<li>uwsgi 中的属性 daemonize 是指将 uwsgi 后台运行。如果指定了这个配置项目后，现象就如1中所示。</li>
+</ol>
 </blockquote>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">kubectl taint nodes --all <span class="hljs-keyword">node</span><span class="hljs-title">-role</span>.kubernetes.io/<span class="hljs-literal">master</span>-<br></code></pre></td></tr></table></figure>
-
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BC%96%E6%8E%92-uwsgi-flask-docker-compose-nginx/">编排 uwsgi flask docker_compose nginx</a>
+                    
+                  </div>
                 
               </div>
               
@@ -292,18 +268,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/28/%E5%90%84%E4%B8%AA%E7%8E%AF%E5%A2%83%E7%9A%84Docker%E5%8F%91%E5%B8%83/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">各个环境的Docker发布</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/15/SpringBoot%E5%BA%94%E7%94%A8%E6%95%B4%E5%90%88ELK%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97%E6%94%B6%E9%9B%86/">
-                        <span class="hidden-mobile">SpringBoot应用整合ELK实现日志收集</span>
+                      <a href="/2021/01/28/%E5%90%84%E4%B8%AA%E7%8E%AF%E5%A2%83%E7%9A%84Docker%E5%8F%91%E5%B8%83/">
+                        <span class="hidden-mobile">各个环境的Docker发布</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
