@@ -14,7 +14,15 @@
     
     <tags>
       
-      <tag>编排 uwsgi flask docker_compose nginx</tag>
+      <tag>编排</tag>
+      
+      <tag>uwsgi</tag>
+      
+      <tag>flask</tag>
+      
+      <tag>docker_compose</tag>
+      
+      <tag>nginx</tag>
       
     </tags>
     
