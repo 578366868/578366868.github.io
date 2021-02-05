@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>jenkins + docker + github 实现自动化部署（本地）</title>
+    <link href="/2021/02/05/jenkins%E6%95%B4%E5%90%88docker/"/>
+    <url>/2021/02/05/jenkins%E6%95%B4%E5%90%88docker/</url>
+    
+    <content type="html"><![CDATA[<h2 id="jenkins-docker-github-实现自动化部署（本地）"><a href="#jenkins-docker-github-实现自动化部署（本地）" class="headerlink" title="jenkins + docker + github 实现自动化部署（本地）"></a>jenkins + docker + github 实现自动化部署（本地）</h2><blockquote><p>由于是本地，故没有使用github的webhook来实现代码push后，jenkins自动拉取代码执行docker容器发布</p></blockquote><h3 id="1-安装jenkins（mac）"><a href="#1-安装jenkins（mac）" class="headerlink" title="1. 安装jenkins（mac）"></a>1. 安装jenkins（mac）</h3><p>选择了war 包进行下载，并执行命令 <code>java -jar jenkins.war -httpPort=8080</code></p><p><a href="https://www.jenkins.io/zh/download/">Jenkins下载路径</a></p><h3 id="2-进入jenkins-安装插件"><a href="#2-进入jenkins-安装插件" class="headerlink" title="2. 进入jenkins 安装插件"></a>2. 进入jenkins 安装插件</h3><p><a href="https://my.oschina.net/yimingkeji/blog/2878371">参考</a></p><p><img src="/2021/02/05/jenkins%E6%95%B4%E5%90%88docker/2021-02-05-13-21-28.png" alt="当前页面进行jenkins源的切换"></p><p><code>https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/update-center.json</code></p><h3 id="4-jenkins-全局工具配置"><a href="#4-jenkins-全局工具配置" class="headerlink" title="4. jenkins 全局工具配置"></a>4. jenkins 全局工具配置</h3><p>Global Tool Configuration 菜单下设置 jdk, git, maven 等工具。</p><blockquote><p>这里没有进行docker安装jenkins 是因为默认情况下docker容器内的应用是访问不了外部程序的（只有进行挂载文件才可以），比如git应用，/usr/bin/git 不挂载路径的情况下是不可以访问的。还有一些环境变量的影响，所以容器的形式。</p></blockquote><h3 id="3-jenkins-新建任务-（这里整合的是springboots的项目）"><a href="#3-jenkins-新建任务-（这里整合的是springboots的项目）" class="headerlink" title="3. jenkins 新建任务 （这里整合的是springboots的项目）"></a>3. jenkins 新建任务 （这里整合的是springboots的项目）</h3><p>Jenkins 界面 –&gt; 新建任务（新建Item）–&gt; 第一个选项（Freestyle project）</p><h4 id="源码管理–如图"><a href="#源码管理–如图" class="headerlink" title="源码管理–如图"></a>源码管理–如图</h4><blockquote><p>注意下面的分支是否和仓库中对应</p></blockquote><p><img src="/2021/02/05/jenkins%E6%95%B4%E5%90%88docker/2021-02-05-13-33-24.png" alt="源码管理"></p><h4 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h4><blockquote><p>POM 下输入pom.xml 所在的路径和文件名 </p></blockquote><p><img src="/2021/02/05/jenkins%E6%95%B4%E5%90%88docker/2021-02-05-13-35-24.png" alt="构建Maven执行路径"></p><blockquote><p>Execute shell 输入执行的语句, 生成images和container之前需要先将已经存在的删除（但首次执行的不适用，需要将删除镜像和容器的三行注释掉）</p></blockquote><p><img src="/2021/02/05/jenkins%E6%95%B4%E5%90%88docker/2021-02-05-13-37-26.png" alt="shell"></p><h3 id="配置结束，执行"><a href="#配置结束，执行" class="headerlink" title="配置结束，执行"></a>配置结束，执行</h3><blockquote><p>子目录下面可以看到执行的时间，执行的结果。构建触发器中也可以设定定时任务进行构建发布。</p></blockquote><p><img src="/2021/02/05/jenkins%E6%95%B4%E5%90%88docker/2021-02-05-13-41-15.png" alt="执行"></p><blockquote><p>注意：maven 执行的路径。</p></blockquote><blockquote><p>如发现以下错误[ERROR] No plugin found for prefix ‘docker’ in the current project and in the plugin groups [org.apache.maven.plugins, org.codehaus.mojo] available from the repositories [local (/Users/linliuan/.m2/repository), central ， 需要在maven 环境下setting.xml 文件pluginGroups 中添加<code>&lt;pluginGroup&gt;com.spotify&lt;/pluginGroup&gt; </code></p></blockquote>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>docker</tag>
+      
+      <tag>jenkins</tag>
+      
+      <tag>自动化部署</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>容器编排</title>
     <link href="/2021/02/03/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92/"/>
     <url>/2021/02/03/%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92/</url>
@@ -86,13 +109,15 @@
     <link href="/2021/01/15/dock%E5%B0%8F%E8%AE%B0/"/>
     <url>/2021/01/15/dock%E5%B0%8F%E8%AE%B0/</url>
     
-    <content type="html"><![CDATA[<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://www.cnblogs.com/hwlong/p/9158982.html">Docker介绍</a></p><p><a href="https://blog.csdn.net/zzq900503/article/details/80668686">kubernetes(k8s)介绍</a></p><h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><h3 id="mac-安装以及一些命令"><a href="#mac-安装以及一些命令" class="headerlink" title="mac 安装以及一些命令"></a>mac 安装以及一些命令</h3><p><a href="https://blog.6ag.cn/2115.html">安装，命令</a></p><h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><p>docker中有镜像和容器的概念，类似于类和类的实现的概念，也类似于镜像是<code>软件</code>的概念，而容器是 <code>软件+数据</code>。</p><p>为了保持各个服务器之间软件运行的环境一致，就需要使用容器（软件 + 数据），容器的docker 备份和再运行<br><a href="https://blog.csdn.net/aeve_imp/article/details/101531225">容器打包成新镜像-再运行</a></p><h1 id="k8s"><a href="#k8s" class="headerlink" title="k8s"></a>k8s</h1><p><a href="https://zhuanlan.zhihu.com/p/268618030">docker &amp; k8s 总结</a></p><p><code>docker desktop</code> 安装 <code>Kubernetes</code>， 由于大天朝网络建议</p><p><a href="https://www.cnblogs.com/13579net/p/11315218.html">Kubernetes安装</a></p><p>最后，翻墙，然后重启 <code>docker</code></p><h2 id="k8s-dashboard"><a href="#k8s-dashboard" class="headerlink" title="k8s dashboard"></a>k8s dashboard</h2><p><a href="http://www.fwhyy.com/2019/05/building-kubernetes-in-mac/">查看dashboard部分</a></p><p><a href="https://blog.csdn.net/weixin_38074756/article/details/109231865">如果有网络问题请参照</a></p><p>dashboard 访问路径为：<br><a href="http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login">http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://www.cnblogs.com/hwlong/p/9158982.html">Docker介绍</a></p><p><a href="https://blog.csdn.net/zzq900503/article/details/80668686">kubernetes(k8s)介绍</a></p><h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><h3 id="mac-安装以及一些命令"><a href="#mac-安装以及一些命令" class="headerlink" title="mac 安装以及一些命令"></a>mac 安装以及一些命令</h3><p><a href="https://blog.6ag.cn/2115.html">安装，命令</a></p><h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><p>docker中有镜像和容器的概念，类似于类和类的实现的概念，也类似于镜像是<code>软件</code>的概念，而容器是 <code>软件+数据</code>。</p><p>为了保持各个服务器之间软件运行的环境一致，就需要使用容器（软件 + 数据），容器的docker 备份和再运行<br><a href="https://blog.csdn.net/aeve_imp/article/details/101531225">容器打包成新镜像-再运行</a></p><h1 id="k8s"><a href="#k8s" class="headerlink" title="k8s"></a>k8s</h1><p><a href="https://zhuanlan.zhihu.com/p/268618030">docker &amp; k8s 总结</a></p><p><code>docker desktop</code> 安装 <code>Kubernetes</code>， 由于大天朝网络建议</p><p><a href="https://www.cnblogs.com/13579net/p/11315218.html">Kubernetes安装</a></p><p>最后，翻墙，然后重启 <code>docker</code></p><h2 id="k8s-dashboard"><a href="#k8s-dashboard" class="headerlink" title="k8s dashboard"></a>k8s dashboard</h2><p><a href="http://www.fwhyy.com/2019/05/building-kubernetes-in-mac/">查看dashboard部分</a></p><p><a href="https://blog.csdn.net/weixin_38074756/article/details/109231865">如果有网络问题请参照</a></p><p>dashboard 访问路径为：<br><a href="http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login">http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login</a></p><h2 id="演变史"><a href="#演变史" class="headerlink" title="演变史"></a>演变史</h2><p><a href="https://blog.csdn.net/jjzhoujun2010/article/details/103945989">容器技术Docker、Docker-Compose、k8s的演变</a></p>]]></content>
     
     
     
     <tags>
       
-      <tag>docker k8s</tag>
+      <tag>docker</tag>
+      
+      <tag>k8s</tag>
       
     </tags>
     
