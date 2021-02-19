@@ -4,6 +4,50 @@
   
   
   <entry>
+    <title>jenkins和github完成自动发布</title>
+    <link href="/2021/02/19/jenkins%E5%92%8Cgithub%E5%AE%8C%E6%88%90%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/"/>
+    <url>/2021/02/19/jenkins%E5%92%8Cgithub%E5%AE%8C%E6%88%90%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/</url>
+    
+    <content type="html"><![CDATA[<h2 id="jenkins-整合docker-参考之前整合的文章"><a href="#jenkins-整合docker-参考之前整合的文章" class="headerlink" title="jenkins 整合docker 参考之前整合的文章"></a>jenkins 整合docker 参考之前整合的文章</h2><h2 id="配置构建触发器"><a href="#配置构建触发器" class="headerlink" title="配置构建触发器"></a>配置构建触发器</h2><h3 id="配置如下："><a href="#配置如下：" class="headerlink" title="配置如下："></a>配置如下：</h3><p><img src="/2021/02/19/jenkins%E5%92%8Cgithub%E5%AE%8C%E6%88%90%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/2021-02-19-10-02-18.png" alt="构建触发器"></p><h2 id="github-添加-Add-webhook"><a href="#github-添加-Add-webhook" class="headerlink" title="github 添加 Add webhook"></a>github 添加 Add webhook</h2><p><img src="/2021/02/19/jenkins%E5%92%8Cgithub%E5%AE%8C%E6%88%90%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/2021-02-19-10-05-33.png" alt="webhook"></p><h2 id="自动发布"><a href="#自动发布" class="headerlink" title="自动发布"></a>自动发布</h2><h3 id="1-github-提交代码后会触发webhook"><a href="#1-github-提交代码后会触发webhook" class="headerlink" title="1. github 提交代码后会触发webhook"></a>1. github 提交代码后会触发webhook</h3><h3 id="2-jenkins-侧也会重新构建生成新的项目，也可以看到构建历史"><a href="#2-jenkins-侧也会重新构建生成新的项目，也可以看到构建历史" class="headerlink" title="2. jenkins 侧也会重新构建生成新的项目，也可以看到构建历史"></a>2. jenkins 侧也会重新构建生成新的项目，也可以看到构建历史</h3><p>如下图：<br><img src="/2021/02/19/jenkins%E5%92%8Cgithub%E5%AE%8C%E6%88%90%E8%87%AA%E5%8A%A8%E5%8F%91%E5%B8%83/2021-02-19-10-13-05.png" alt="构建历史"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>jenkins</tag>
+      
+      <tag>github</tag>
+      
+      <tag>webhooks</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>devops学习资料</title>
+    <link href="/2021/02/05/devops%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/"/>
+    <url>/2021/02/05/devops%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Devops学习资料"><a href="#Devops学习资料" class="headerlink" title="Devops学习资料"></a>Devops学习资料</h2><p><a href="http://www.found5.com/view/278.html">Docker和K8S到底有什么区别和联系</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>docker</tag>
+      
+      <tag>Kubernetes</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>jenkins + docker + github 实现自动化部署（本地）</title>
     <link href="/2021/02/05/jenkins%E6%95%B4%E5%90%88docker/"/>
     <url>/2021/02/05/jenkins%E6%95%B4%E5%90%88docker/</url>
